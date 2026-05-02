@@ -3,7 +3,7 @@
     <head>
         <title>Álex Roncal Pardillo | UX/UI Designer & Artista Digital</title>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Portfolio de Álex Roncal Pardillo: UX/UI, arte digital, modelado 3D, TerraByte y proyectos visuales." />
 
         <link rel="stylesheet" href="assets/css/main.css" />
@@ -42,8 +42,8 @@
 
             .skills-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1rem;
                 margin-top: 2em;
             }
 
@@ -52,11 +52,11 @@
             }
 
             .skill-item {
-                text-align: center;
-                padding: 1.5em;
+                text-align: left;
+                padding: 1.35em 1.25em;
                 background: rgba(0,0,0,0.03);
-                border-radius: 12px;
-                border: 1px solid rgba(0,0,0,0.05);
+                border-radius: 8px;
+                border: 1px solid rgba(0,0,0,0.08);
                 transition: all 0.3s ease;
             }
 
@@ -67,14 +67,26 @@
 
             .skill-item strong {
                 display: block;
-                margin-bottom: 0.5em;
                 color: #222;
+                font-family: "Source Sans Pro", Helvetica, sans-serif;
+                font-size: 0.95em;
+                font-weight: 900;
+                letter-spacing: 0.04em;
+                line-height: 1.2;
+                margin-bottom: 0.7em;
+                text-align: center;
+                text-transform: uppercase;
             }
 
             .skill-item p {
-                font-size: 0.9em;
+                color: #666;
+                font-size: 0.95em;
+                hyphens: none;
                 margin: 0;
-                line-height: 1.4;
+                line-height: 1.45;
+                text-align: left;
+                text-wrap: pretty;
+                word-spacing: normal;
             }
 
             .featured-label {
@@ -99,9 +111,11 @@
             }
 
             .footer-content {
-                max-width: 1100px;
+                width: 100%;
+                max-width: 72rem;
                 margin: 0 auto;
                 padding: 0 40px;
+                box-sizing: border-box;
             }
 
             .insta-call {
@@ -166,7 +180,7 @@
                 margin-top: 3em;
                 padding-top: 2em;
                 border-top: 1px solid #eee;
-                text-align: center;
+                text-align: left;
                 font-size: 0.85em;
                 color: #888;
             }
@@ -175,6 +189,44 @@
                 max-width: 42ch;
                 margin-left: auto;
                 margin-right: auto;
+            }
+
+            .button,
+            input[type="submit"] {
+                transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            }
+
+            .button:hover,
+            input[type="submit"]:hover {
+                transform: translateY(-2px);
+            }
+
+            .intro-actions {
+                justify-content: center;
+                gap: 0.75em;
+                flex-wrap: wrap;
+            }
+
+            .intro-actions .button {
+                min-width: 12rem;
+            }
+
+            .section-intro {
+                max-width: 58ch;
+                margin: 0 auto 2em auto;
+                text-align: center;
+                color: #666;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    scroll-behavior: auto !important;
+                    transition-duration: 0.01ms !important;
+                }
             }
 
             @media screen and (max-width: 840px) {
@@ -195,26 +247,57 @@
                 .posts article .image.fit img {
                     height: 280px;
                 }
+
+                .footer-content {
+                    padding: 0 2rem;
+                }
+            }
+
+            .skip-link {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                z-index: 10001;
+                padding: 0.7em 1em;
+                background: #51baad;
+                color: #fff;
+                border-radius: 4px;
+                transform: translateY(-150%);
+                transition: transform 0.2s ease;
+            }
+
+            .skip-link:focus {
+                transform: translateY(0);
+            }
+
+            a:focus-visible,
+            button:focus-visible,
+            input:focus-visible,
+            textarea:focus-visible {
+                outline: 3px solid #51baad;
+                outline-offset: 3px;
             }
         </style>
     </head>
 
     <body class="is-preload">
+        <a href="#main" class="skip-link">Saltar al contenido</a>
         <div id="wrapper" class="fade-in">
 
             <div id="intro">
-                <p class="tagline">UX/UI Designer | Artista Digital | 3D Artist</p>
+                <p class="tagline">UX/UI Designer | Digital Artist | 3D Artist | Marketing Specialist</p>
                 <h1>ÁLEX<br />RONCAL</h1>
                 <p>
-                    Especialista en Diseño Centrado en el Usuario y creación visual.<br />
-                    Desde la arquitectura de software hasta la escultura digital de alta fidelidad.
+        Diseño experiencias visuales que combinan interacción, narrativa y dirección artística.<br />
+        Desde interfaces UX/UI hasta ilustración y escultura digital.
                 </p>
-                <ul class="actions">
+                <ul class="actions intro-actions">
                     <li>
-                        <a href="#header" class="button icon solid solo fa-arrow-down scrolly">
+                        <a href="#main" class="button primary icon solid fa-arrow-down scrolly">
                             Explorar mi trabajo
                         </a>
                     </li>
+                    <li><a href="galeria.html" class="button icon solid fa-images">Ver galería</a></li>
                 </ul>
             </div>
 
@@ -224,7 +307,7 @@
 
             <nav id="nav">
                 <ul class="links">
-                    <li class="active"><a href="index.html">Inicio</a></li>
+                    <li class="active"><a href="index.html" aria-current="page">Inicio</a></li>
                     <li><a href="tfg.html">TerraByte</a></li>
                     <li><a href="galeria.html">Arte Digital</a></li>
                 </ul>
@@ -242,7 +325,7 @@
                 </ul>
             </nav>
 
-            <div id="main">
+            <main id="main">
 
                 <article class="post featured">
                     <header class="major">
@@ -299,7 +382,7 @@
                         </a>
 
                         <p>
-                            Escultura orgánica en ZBrush y modelado en 3ds Max.
+                            Escultura orgánica en ZBrush y renderizado en 3ds Max.
                             Optimización de mallas para renderizado PBR e impresión 3D.
                         </p>
 
@@ -312,6 +395,9 @@
                 <section>
                     <header class="major">
                         <h2>Capacidades Técnicas</h2>
+                        <p class="section-intro">
+                            Una combinación de diseño de experiencia, producción visual y desarrollo para llevar proyectos desde la idea hasta el prototipo funcional.
+                        </p>
                     </header>
 
                     <div class="skills-grid">
@@ -337,7 +423,7 @@
                     </div>
                 </section>
 
-            </div>
+            </main>
 
             <footer id="footer">
                 <div class="footer-content">
