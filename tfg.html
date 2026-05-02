@@ -132,7 +132,7 @@
                 position: absolute;
                 top: 20px;
                 right: 20px;
-                color: white;
+                color: white !important;
                 font-size: 2em;
                 cursor: pointer;
                 background: none;
@@ -149,12 +149,13 @@
                 min-width: 8.5rem;
                 height: 2.75rem;
                 background: rgba(255, 255, 255, 0.1);
-                color: white;
+                color: white !important;
                 padding: 0 1.2rem;
                 border-radius: 4px;
                 cursor: pointer;
                 transition: background 0.3s ease;
                 border: 1px solid rgba(255,255,255,0.2);
+                box-shadow: none;
                 font-family: "Source Sans Pro", Helvetica, sans-serif;
                 font-size: 0.82em;
                 line-height: 1;
@@ -164,6 +165,8 @@
 
             .btn-nav:hover {
                 background: rgba(255, 255, 255, 0.2);
+                color: white !important;
+                box-shadow: none;
             }
 
             .modal-counter {
@@ -369,7 +372,9 @@
                 }
 
                 .btn-nav {
+                    flex: 1 1 calc(50% - 0.5rem);
                     min-width: 7rem;
+                    padding: 0 0.75rem;
                 }
 
                 .modal-counter {
