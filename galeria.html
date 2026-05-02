@@ -15,8 +15,18 @@
                 overflow-x: auto;
                 gap: 15px;
                 padding: 10px 0 30px 0;
-                scroll-snap-type: x mandatory;
+                scroll-snap-type: x proximity;
                 scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                cursor: grab;
+                scroll-behavior: smooth;
+            }
+
+            .project-slider.is-dragging {
+                cursor: grabbing;
+
+
             }
 
             .project-slider::-webkit-scrollbar {
@@ -36,6 +46,9 @@
                 border-radius: 4px;
                 filter: grayscale(20%);
                 transition: all 0.3s ease;
+                user-select: none;
+                -webkit-user-drag: none;
+
             }
 
             .slider-item:hover img {
@@ -128,8 +141,8 @@
             .contact-container {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 4em;
-                margin-top: 3em;
+                gap: 3em;
+                margin-top: 2.25em;
                 text-align: left;
             }
 
@@ -175,7 +188,7 @@
             }
 
             .footer-info {
-                margin-top: 4em;
+                margin-top: 3em;
                 padding-top: 2em;
                 border-top: 1px solid #eee;
                 text-align: center;
@@ -186,7 +199,7 @@
             @media screen and (max-width: 840px) {
                 .contact-container {
                     grid-template-columns: 1fr;
-                    gap: 3em;
+                    gap: 2em;
                 }
 
                 .slider-item {
@@ -439,13 +452,62 @@
             const lightboxImg = lightbox.querySelector('img');
 
             document.querySelectorAll('.slider-item img').forEach(function(img) {
+                img.setAttribute('draggable', 'false');
                 img.addEventListener('click', function() {
+                        if (img.dataset.dragging === 'true') {
+                        img.dataset.dragging = 'false';
+                        return;
+                    }
+
                     lightboxImg.src = img.src;
                     lightboxImg.alt = img.alt;
                     lightbox.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
                 });
             });
+
+            document.querySelectorAll('.project-slider').forEach(function(slider) {
+                let startX = 0;
+                let startScrollLeft = 0;
+                let isDragging = false;
+                let isMouseDown = false;
+
+                slider.addEventListener('pointerdown', function(e) {
+                    if (e.pointerType === 'mouse' && e.button !== 0) return; // Solo botón izquierdo
+                    startX = e.clientX;
+                    startScrollLeft = slider.scrollLeft;
+                    isDragging = false;
+                    if (e.pointerType === 'mouse') {
+                        isMouseDown = true;
+                        slider.classList.add('is-dragging');
+                    }
+                });
+
+                slider.addEventListener('pointermove', function(e) {
+                    const deltaX = e.clientX - startX;
+                    if (Math.abs(deltaX) > 8) isDragging = true;
+
+                    if (isMouseDown) {
+                        e.preventDefault();
+                        slider.scrollLeft = startScrollLeft - deltaX;
+                    }
+                });
+
+                slider.addEventListener('pointerup', function() {
+                    isMouseDown = false;
+                    slider.classList.remove('is-dragging');
+                    slider.querySelectorAll('img').forEach(function(img) {
+                        img.dataset.dragging = isDragging ? 'true' : 'false';
+                    });
+                });
+
+                slider.addEventListener('pointerleave', function() {
+                    isMouseDown = false;
+                    slider.classList.remove('is-dragging');
+                });
+            });
+
+
 
             lightbox.addEventListener('click', function() {
                 lightbox.style.display = 'none';
