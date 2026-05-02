@@ -1,55 +1,465 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
     <head>
-        <title>Portfolio Visual | Álex Roncal</title>
+        <title>Arte Digital | Álex Roncal Pardillo</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="description" content="Galería de arte digital de Álex Roncal Pardillo: ilustración, modelado 3D, fotografía, showreel y animación." />
+
         <link rel="stylesheet" href="assets/css/main.css" />
         <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+        <style>
+            .project-slider {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 0 30px 0;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+            }
+
+            .project-slider::-webkit-scrollbar {
+                display: none;
+            }
+
+            .slider-item {
+                flex: 0 0 300px;
+                scroll-snap-align: start;
+                cursor: zoom-in;
+            }
+
+            .slider-item img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 4px;
+                filter: grayscale(20%);
+                transition: all 0.3s ease;
+            }
+
+            .slider-item:hover img {
+                filter: grayscale(0%);
+                transform: translateY(-5px);
+            }
+
+            .category-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-top: 3em;
+                border-bottom: 1px solid #eee;
+            }
+
+            .category-header h2 {
+                font-size: 1.2em;
+                margin-bottom: 0.5em;
+                letter-spacing: 2px;
+            }
+
+            .scroll-hint {
+                font-size: 0.7em;
+                text-transform: uppercase;
+                color: #bbb;
+            }
+
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%;
+                height: 0;
+                overflow: hidden;
+                max-width: 100%;
+                background: #000;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+            #lightbox {
+                display: none;
+                position: fixed;
+                z-index: 10000;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                justify-content: center;
+                align-items: center;
+                cursor: zoom-out;
+                padding: 2em;
+            }
+
+            #lightbox img {
+                max-width: 90%;
+                max-height: 90%;
+                box-shadow: 0 0 30px rgba(0,0,0,0.1);
+                border-radius: 4px;
+            }
+
+            #footer {
+                padding: 4em 0;
+                background-color: #ffffff;
+                border-top: 1px solid #eee;
+            }
+
+            .footer-content {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+
+            .insta-call {
+                font-family: "Source Sans Pro", Helvetica, sans-serif;
+                font-size: 1.5em;
+                letter-spacing: -0.02em;
+                margin-bottom: 1.5em;
+                color: #212931;
+                text-align: center;
+            }
+
+            .contact-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4em;
+                margin-top: 3em;
+                text-align: left;
+            }
+
+            .contact-container h3 {
+                font-size: 1.5em;
+                margin-bottom: 1em;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                background: #fdfdfd;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                padding: 0.75em;
+                margin-bottom: 1em;
+            }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            textarea:focus {
+                border-color: #51baad;
+                box-shadow: 0 0 0 1px #51baad;
+            }
+
+            .contact-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .contact-details h4 {
+                color: #51baad;
+                text-transform: uppercase;
+                font-size: 0.7em;
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5em;
+            }
+
+            .contact-details p {
+                font-size: 1.1em;
+                margin-bottom: 2em;
+            }
+
+            .footer-info {
+                margin-top: 4em;
+                padding-top: 2em;
+                border-top: 1px solid #eee;
+                text-align: center;
+                font-size: 0.85em;
+                color: #888;
+            }
+
+            @media screen and (max-width: 840px) {
+                .contact-container {
+                    grid-template-columns: 1fr;
+                    gap: 3em;
+                }
+
+                .slider-item {
+                    flex: 0 0 240px;
+                }
+
+                .slider-item img {
+                    height: 320px;
+                }
+
+                .category-header {
+                    align-items: flex-start;
+                    flex-direction: column;
+                    gap: 0.5em;
+                }
+            }
+        </style>
     </head>
+
     <body class="is-preload">
         <div id="wrapper">
+
             <header id="header">
-                <a href="index.html" class="logo">Volver</a>
+                <a href="index.html" class="logo">Álex Roncal Pardillo</a>
             </header>
 
             <nav id="nav">
                 <ul class="links">
-                    <li><a href="index.html">Proyectos</a></li>
-                    <li><a href="tfg.html">TFG</a></li>
-                    <li class="active"><a href="galeria.html">Arte & 3D</a></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tfg.html">TerraByte</a></li>
+                    <li class="active"><a href="galeria.html">Arte Digital</a></li>
+                </ul>
+                <ul class="icons">
+                    <li>
+                        <a href="https://www.linkedin.com/in/alex-roncal-pardillo/" class="icon brands fa-linkedin" target="_blank" rel="noopener noreferrer">
+                            <span class="label">LinkedIn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/pingualex_/" class="icon brands fa-instagram" target="_blank" rel="noopener noreferrer">
+                            <span class="label">Instagram</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
             <div id="main">
+
                 <section class="post">
                     <header class="major">
-                        <h1>Exploración Visual</h1>
-                        <p>Modelado 3D, Fotografía y Diseño Artístico.</p>
+                        <h1>Arte Digital</h1>
+                        <p>
+                            Selección de trabajos de ilustración, modelado 3D, fotografía y animación,
+                            centrados en composición visual, narrativa y acabado técnico.
+                        </p>
                     </header>
+                </section>
 
-                    <h2 id="3d">Escultura Digital (ZBrush & 3ds Max)</h2>
-                    <p>Especializado en la creación de assets de alta calidad, optimización de mallas y flujos de trabajo PBR.</p>
-                    <div class="box alt">
-                        <div class="row gtr-50 gtr-uniform">
-                            <div class="col-6"><span class="image fit"><img src="assets/3d-render.jpg" alt="Render 3D" /></span></div>
-                            <div class="col-6"><span class="image fit"><img src="assets/3d-wireframe.jpg" alt="Malla 3D" /></span></div>
-                        </div>
+                <section id="ilustracion">
+                    <div class="category-header">
+                        <h2>Ilustración</h2>
+                        <span class="scroll-hint">Explorar →</span>
                     </div>
 
-                    <h2 id="foto">Fotografía de Autor</h2>
-                    <p>Selección de mi etapa en la <strong>Accademia di Belle Arti di Bari (Italia)</strong>, explorando la narrativa visual y la composición.</p>
-                    <div class="box alt">
-                        <div class="row gtr-50 gtr-uniform">
-                            <div class="col-4"><span class="image fit"><img src="assets/foto-1.jpg" alt="Bari 1" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="assets/foto-2.jpg" alt="Bari 2" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="assets/foto-3.jpg" alt="Bari 3" /></span></div>
+                    <div class="project-slider">
+                        <div class="slider-item">
+                            <img src="assets/ILUSTRACION_1.jpg" alt="Ilustración digital de personaje" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/ILUSTRACION_2.jpg" alt="Concept art digital" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/ILUSTRACION_3.png" alt="Pintura digital" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/ILUSTRACION_4.png" alt="Boceto digital" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/ILUSTRACION_5.jpg" alt="Arte visual digital" />
                         </div>
                     </div>
                 </section>
+
+                <section id="modelado-3d">
+                    <div class="category-header">
+                        <h2>Modelado & Prototipado 3D</h2>
+                        <span class="scroll-hint">Explorar →</span>
+                    </div>
+
+                    <div class="project-slider">
+                        <div class="slider-item">
+                            <img src="assets/3D_1.png" alt="Escultura 3D realizada en ZBrush" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/3D_2.png" alt="Modelo preparado para impresión 3D" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/3D_3.jpg" alt="Modelo 3D hard surface" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/3D_4.jpg" alt="Mockup de producto 3D" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/3D_5.jpg" alt="Render 3D con materiales PBR" />
+                        </div>
+                    </div>
+                </section>
+
+                <section id="fotografia">
+                    <div class="category-header">
+                        <h2>Fotografía</h2>
+                        <span class="scroll-hint">Explorar →</span>
+                    </div>
+
+                    <div class="project-slider">
+                        <div class="slider-item">
+                            <img src="assets/FOTO1.jpg" alt="Fotografía urbana en Italia" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/FOTO2.jpg" alt="Fotografía urbana" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/FOTO3.jpg" alt="Composición fotográfica de calle" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/FOTO4.png" alt="Fotografía de detalle" />
+                        </div>
+                        <div class="slider-item">
+                            <img src="assets/FOTO5.JPG" alt="Fotografía de arquitectura" />
+                        </div>
+                    </div>
+                </section>
+
+                <section id="showreel">
+                    <div class="category-header">
+                        <h2>Showreel 3D & Animación</h2>
+                    </div>
+
+                    <div class="video-container">
+                        <iframe
+                            src="https://www.youtube.com/embed/R1ZCe_pI3hM?rel=0&modestbranding=1"
+                            title="Showreel de Álex Roncal"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <p style="font-size: 0.9em; color: #888; text-align: center; margin-top: 10px;">
+                        Compilación de proyectos destacados: modelado, rigging y animación.
+                    </p>
+                </section>
+
             </div>
+
+            <div id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
+                <img src="" alt="Imagen ampliada" />
+            </div>
+
+            <footer id="footer">
+                <div class="footer-content">
+                    <section>
+                        <p class="insta-call">Sigue mi proceso creativo en tiempo real</p>
+                        <ul class="actions special">
+                            <li>
+                                <a href="https://www.instagram.com/pingualex_/" class="button large icon brands fa-instagram" target="_blank" rel="noopener noreferrer">
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <div class="contact-container">
+                        <section>
+                            <h3>Envíame un mensaje</h3>
+
+                            <form method="POST" action="https://formsubmit.co/alropa99@hotmail.com">
+                                <div class="fields">
+                                    <div class="field">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" name="name" id="name" required />
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" required />
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="message">Mensaje</label>
+                                        <textarea name="message" id="message" rows="3" required></textarea>
+                                    </div>
+
+                                    <input type="hidden" name="_subject" value="Contacto desde Portfolio Álex Roncal" />
+                                </div>
+
+                                <ul class="actions">
+                                    <li><input type="submit" value="Enviar Mensaje" /></li>
+                                </ul>
+                            </form>
+                        </section>
+
+                        <div class="contact-details">
+                            <section>
+                                <h4>Email</h4>
+                                <p><a href="mailto:alropa99@hotmail.com">alropa99@hotmail.com</a></p>
+                            </section>
+
+                            <section>
+                                <h4>Social</h4>
+                                <ul class="icons alt">
+                                    <li>
+                                        <a href="https://www.linkedin.com/in/alex-roncal-pardillo/" class="icon brands alt fa-linkedin" target="_blank" rel="noopener noreferrer">
+                                            <span class="label">LinkedIn</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/pingualex_/" class="icon brands alt fa-instagram" target="_blank" rel="noopener noreferrer">
+                                            <span class="label">Instagram</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="footer-info">
+                        <p>
+                            <strong>Álex Roncal Pardillo</strong><br />
+                            UX/UI Designer & Artista Digital<br />
+                            <a href="mailto:alropa99@hotmail.com">alropa99@hotmail.com</a>
+                        </p>
+                        <p>&copy; 2026 Álex Roncal. Todos los derechos reservados.</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
+
         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.scrollex.min.js"></script>
+        <script src="assets/js/jquery.scrolly.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
+
+        <script>
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+
+            document.querySelectorAll('.slider-item img').forEach(function(img) {
+                img.addEventListener('click', function() {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            lightbox.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+                document.body.style.overflow = 'auto';
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                    lightbox.style.display = 'none';
+                    lightboxImg.src = '';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        </script>
     </body>
-</html> 
+</html>
